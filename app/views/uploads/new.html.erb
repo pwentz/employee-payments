@@ -1,0 +1,5 @@
+<h1>Upload document</h1>
+<%= form_for :upload, url: "/uploads", method: "POST" do |f| %>
+  <%= f.file_field :xml %>
+  <%= f.submit %>
+<% end %>
