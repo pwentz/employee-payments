@@ -6,7 +6,7 @@ const UploadPayments = (payments) => {
   return (
     <div>
       Payments
-      <ul>
+      <ul style={{ listStyleType: 'none' }}>
       {
         Object.values(payments).map(payment => (
           <UploadPayment props={payment} key={payment.id} />
