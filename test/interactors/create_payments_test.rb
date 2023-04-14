@@ -3,15 +3,16 @@ require "test_helper"
 class CreatePaymentsTest < ActiveSupport::TestCase
   test "it creates the necessary objects" do
     assert_equal Employee.count, 0
+    assert_equal Payee.count, 0
     assert_equal Employer.count, 0
     assert_equal Payor.count, 0
     assert_equal Payment.count, 0
     assert_equal Upload.count, 0
 
-    payments = CreatePayments.run!([DummyXMLRow.new(sample_xml_row)])
+    upload_id = CreatePayments.run([DummyXMLRow.new(sample_xml_row)])
 
-    assert payments.first.is_a?(Payment)
-    assert_equal payments.length, 1
+    assert Upload.exists?(upload_id)
+    assert_equal Upload.find(upload_id).payments.length, 1
     assert_equal Upload.count, 1
 
     employee = Employee.first
@@ -22,8 +23,11 @@ class CreatePaymentsTest < ActiveSupport::TestCase
     assert_equal employee.last_name, "Johnson"
     assert_equal employee.date_of_birth, Date.new(1994, 12, 5)
     assert_equal employee.phone_number, "1234567890"
-    assert_equal employee.plaid_id, "ins_123"
-    assert_equal employee.account_number, "54321"
+
+    payee = Payee.first
+    assert_equal payee.plaid_id, "ins_123"
+    assert_equal payee.account_number, "54321"
+    assert_equal payee.employee_id, employee.id
 
     employer = Employer.first
     assert_equal Employer.count, 1
@@ -44,26 +48,28 @@ class CreatePaymentsTest < ActiveSupport::TestCase
 
     payment = Payment.first
     assert_equal Payment.count, 1
-    assert_equal payment.upload_id, Upload.first.id
-    assert_equal payment.employee_id, employee.id
+    assert_equal payment.upload_id, upload_id
+    assert_equal payment.payee_id, payee.id
     assert_equal payment.payor_id, payor.id
     assert_equal payment.amount, 8.15
   end
 
   test "it does not create multiple records for duplicate employer, employee, or payor" do
     assert_equal Employee.count, 0
+    assert_equal Payee.count, 0
     assert_equal Employer.count, 0
     assert_equal Payor.count, 0
     assert_equal Payment.count, 0
     assert_equal Upload.count, 0
 
-    payments = CreatePayments.run!(
+    upload_id = CreatePayments.run(
       # duplicate rows
       [DummyXMLRow.new(sample_xml_row), DummyXMLRow.new(sample_xml_row)]
     )
 
-    assert_equal payments.length, 2
+    assert_equal Upload.find(upload_id).payments.length, 2
     assert_equal Employee.count, 1
+    assert_equal Payee.count, 1
     assert_equal Employer.count, 1
     assert_equal Payor.count, 1
     assert_equal Upload.count, 1
@@ -72,6 +78,7 @@ class CreatePaymentsTest < ActiveSupport::TestCase
 
   test "it will not create payment if row contains invalid information" do
     assert_equal Employee.count, 0
+    assert_equal Payee.count, 0
     assert_equal Employer.count, 0
     assert_equal Payor.count, 0
     assert_equal Payment.count, 0
@@ -79,10 +86,11 @@ class CreatePaymentsTest < ActiveSupport::TestCase
 
     invalid_row = sample_xml_row
     invalid_row["Employee"]["DunkinId"] = nil
-    payments = CreatePayments.run!([DummyXMLRow.new(sample_xml_row), DummyXMLRow.new(invalid_row)])
+    upload_id = CreatePayments.run([DummyXMLRow.new(sample_xml_row), DummyXMLRow.new(invalid_row)])
 
-    assert_equal payments.length, 1
+    assert_equal Upload.find(upload_id).payments.length, 1
     assert_equal Employee.count, 1
+    assert_equal Payee.count, 1
     assert_equal Employer.count, 1
     assert_equal Payor.count, 1
     assert_equal Payment.count, 1

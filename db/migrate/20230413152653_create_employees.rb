@@ -7,8 +7,7 @@ class CreateEmployees < ActiveRecord::Migration[7.0]
       t.string :last_name, null: false
       t.date :date_of_birth, null: false
       t.string :phone_number, null: false
-      t.string :plaid_id, null: false
-      t.string :account_number, null: false
+      t.string :methodfi_id
 
       t.timestamps
     end

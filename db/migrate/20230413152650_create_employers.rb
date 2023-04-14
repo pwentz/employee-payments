@@ -9,6 +9,7 @@ class CreateEmployers < ActiveRecord::Migration[7.0]
       t.string :address_city, null: false
       t.string :address_state, null: false
       t.string :address_zip, null: false
+      t.string :methodfi_id
 
       t.timestamps
     end

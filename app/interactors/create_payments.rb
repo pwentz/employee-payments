@@ -19,9 +19,16 @@ class CreatePayments
           first_name: employee_elt.at_xpath("FirstName")&.text,
           last_name: employee_elt.at_xpath("LastName")&.text,
           date_of_birth: formatted_dob,
-          phone_number: employee_elt.at_xpath("PhoneNumber")&.text,
+          phone_number: employee_elt.at_xpath("PhoneNumber")&.text
+        )
+      end
+
+      payee = Payee.find_by(plaid_id: payee_elt.at_xpath("PlaidId")&.text)
+      if payee.nil?
+        payee = Payee.create!(
           plaid_id: payee_elt.at_xpath("PlaidId")&.text,
-          account_number: payee_elt.at_xpath("LoanAccountNumber")&.text
+          account_number: payee_elt.at_xpath("LoanAccountNumber")&.text,
+          employee: employee
         )
       end
 
@@ -51,7 +58,7 @@ class CreatePayments
 
       payment = Payment.create!(
         upload: upload,
-        employee: employee,
+        payee: payee,
         payor: payor,
         amount: raw_amount.first == "$" ? raw_amount[1..-1] : raw_amount
       )

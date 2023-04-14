@@ -50,8 +50,8 @@ const EmployeeCard = ({ props }) => {
 
           <Tab pad="small" title={<Atm {...iconProps[3]} />}>
             <CardBody pad="small">
-              <Text><strong>Plaid Id</strong> {props.employee_plaid_id}</Text>
-              <Text><strong>Account</strong> {props.employee_account_number}</Text>
+              <Text><strong>Plaid Id</strong> {props.payee_plaid_id}</Text>
+              <Text><strong>Account</strong> {props.payee_account_number}</Text>
             </CardBody>
           </Tab>
         </Tabs>

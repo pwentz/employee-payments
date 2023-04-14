@@ -21,8 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_152826) do
     t.string "last_name", null: false
     t.date "date_of_birth", null: false
     t.string "phone_number", null: false
-    t.string "plaid_id", null: false
-    t.string "account_number", null: false
+    t.string "methodfi_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -36,27 +35,41 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_152826) do
     t.string "address_city", null: false
     t.string "address_state", null: false
     t.string "address_zip", null: false
+    t.string "methodfi_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "payments", force: :cascade do |t|
-    t.bigint "upload_id", null: false
+  create_table "payees", force: :cascade do |t|
     t.bigint "employee_id", null: false
-    t.bigint "payor_id", null: false
-    t.decimal "amount", precision: 9, scale: 2, null: false
+    t.string "plaid_id", null: false
+    t.string "account_number", null: false
+    t.string "methodfi_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["employee_id"], name: "index_payments_on_employee_id"
+    t.index ["employee_id"], name: "index_payees_on_employee_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.bigint "upload_id", null: false
+    t.bigint "payee_id", null: false
+    t.bigint "payor_id", null: false
+    t.decimal "amount", precision: 9, scale: 2, null: false
+    t.integer "status", default: 0, null: false
+    t.string "methodfi_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payee_id"], name: "index_payments_on_payee_id"
     t.index ["payor_id"], name: "index_payments_on_payor_id"
     t.index ["upload_id"], name: "index_payments_on_upload_id"
   end
 
   create_table "payors", force: :cascade do |t|
-    t.string "corporate_id"
+    t.string "corporate_id", null: false
     t.bigint "employer_id", null: false
-    t.string "routing_number"
-    t.string "account_number"
+    t.string "routing_number", null: false
+    t.string "account_number", null: false
+    t.string "methodfi_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["employer_id"], name: "index_payors_on_employer_id"
@@ -68,7 +81,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_152826) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "payments", "employees"
+  add_foreign_key "payees", "employees"
+  add_foreign_key "payments", "payees"
   add_foreign_key "payments", "payors"
   add_foreign_key "payments", "uploads"
   add_foreign_key "payors", "employers"
