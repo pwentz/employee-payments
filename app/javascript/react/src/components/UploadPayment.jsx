@@ -1,35 +1,31 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import * as ReactDOM from 'react-dom';
+import PayorCard from "./PayorCard";
+import EmployeeCard from "./EmployeeCard";
+import { Box, Card, CardHeader, CardBody, CardFooter, Heading, Tabs, Tab, Text } from 'grommet';
+import { LinkNext, ContactInfo, CircleInformation, Atm, Tree } from 'grommet-icons';
+import { dunkinMagenta, dunkinBrown, dunkinOrange } from "../styles";
 
 const UploadPayment = ({ props }) => {
+  const activeIconProps = { color: dunkinOrange, background: "dark-1" }
+  const [iconProps, setIconProps] = useState([activeIconProps, {}, {}, {}])
+  const setActiveIcon = activeIdx => {
+    const newProps = [{}, {}, {}, {}]
+    newProps[activeIdx] = activeIconProps
+    setIconProps(newProps)
+  }
+
   return (
-    <li>
-      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
-        <div>
-          <h3>{props.payor_name.join(" ")}</h3>
-          <ul>
-            <li>ID: {props.payor_id}</li>
-            <li>Routing: {props.payor_routing_number}</li>
-            <li>Account: {props.payor_account_number}</li>
-          </ul>
-        </div>
+    <Box direction="row" pad="small" justify="evenly">
+      <PayorCard props={props} />
 
-        <div>
-          <p>${props.amount}</p>
-          <p> ⟶   </p>
-        </div>
+      <Box width="small" direction="column" pad="small" align="center" justify="start">
+        <Heading size="5">${props.amount}</Heading>
+        <LinkNext size="large" color={dunkinOrange} />
+      </Box>
 
-        <div>
-          <h3>{props.employee_first_name} {props.employee_last_name}</h3>
-          <ul>
-            <li>ID: {props.employee_id}</li>
-            <li>Branch: {props.employee_branch_id}</li>
-            <li>Account: {props.employee_account_number}</li>
-          </ul>
-        </div>
-      </div>
-      <hr></hr>
-    </li>
+      <EmployeeCard props={props} />
+    </Box>
   );
 };
 

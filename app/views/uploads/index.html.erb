@@ -1,1 +1,11 @@
-<h1>Hello WORLD!!!!</h1>
+<h1>Upload document</h1>
+<%= form_for :upload, url: uploads_path, method: "POST" do |f| %>
+  <%= f.file_field :xml %>
+  <%= f.submit %>
+<% end %>
+
+
+<% @uploads.each do |upload| %>
+  <!-- REACT COMPONENT HERE -->
+  <p><%= upload.id %>: <%= upload.status %></p>
+<% end %>

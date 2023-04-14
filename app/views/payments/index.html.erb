@@ -1,3 +1,17 @@
-<h1>Upload Payments</h1>
+<% if @upload.pending? %>
+  <h1>Pending Payments</h1>
+
+  <%= form_for @upload, url: upload_path(@upload.id), method: "PUT" do |f| %>
+    <%= f.hidden_field :status, value: 1 %>
+    <%= f.submit "Process" %>
+  <% end %>
+
+  <%= form_for @upload, url: upload_path(@upload.id), method: "PUT" do |f| %>
+    <%= f.hidden_field :status, value: 4 %>
+    <%= f.submit "Discard" %>
+  <% end %>
+<% else %>
+  <h1>Payments for Upload <%= @upload.id %> (<%= @upload.status %>)</h1>
+<% end %>
 
 <upload-payments-component props-json=<%= @payments.to_json %>>
