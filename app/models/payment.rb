@@ -12,4 +12,10 @@ class Payment < ApplicationRecord
     failed: 3,
     cancelled: 4
   }
+
+  def self.payor_totals
+    joins(:payor)
+      .select("account_number, SUM(amount) as amount")
+      .group("account_number")
+  end
 end

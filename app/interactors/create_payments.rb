@@ -23,7 +23,7 @@ class CreatePayments
         )
       end
 
-      payee = Payee.find_by(plaid_id: payee_elt.at_xpath("PlaidId")&.text)
+      payee = Payee.find_by(account_number: payee_elt.at_xpath("LoanAccountNumber")&.text)
       if payee.nil?
         payee = Payee.create!(
           plaid_id: payee_elt.at_xpath("PlaidId")&.text,
