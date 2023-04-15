@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Grommet, Box } from 'grommet';
 import { globalGrommetTheme } from '../styles';
+import { CreditCard, Location, Money } from 'grommet-icons';
 import Upload from "./Upload";
 
 const Uploads = (uploads) => {

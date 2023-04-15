@@ -1,10 +1,36 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Text, Tag, Box, Card, CardHeader, CardBody } from 'grommet';
-import { DocumentTime, DocumentVerified, DocumentMissing } from 'grommet-icons';
+import { Menu, Text, Tag, Box, Card, CardHeader, CardBody } from 'grommet';
+import { DocumentDownload, Atm, Location, Money, DocumentTime, DocumentVerified, DocumentMissing } from 'grommet-icons';
 import { dunkinMagenta, dunkinBrown, dunkinOrange } from "../styles";
 
 const Upload = ({ props }) => {
+  return (
+    <Menu
+      label={<UploadCard props={props} />}
+      icon={<DocumentDownload />}
+      items={[
+        {
+          label: <Text>&nbsp; Funds paid by account</Text>,
+          icon: <Atm />,
+          onClick: (p) => console.log(p)
+        },
+        {
+          label: <Text>&nbsp; Funds paid by branch</Text>,
+          icon: <Location />,
+          onClick: (p) => console.log(p)
+        },
+        {
+          label: <Text>&nbsp; All payments</Text>,
+          icon: <Money />,
+          onClick: (p) => console.log(p)
+        },
+      ]}
+    />
+  )
+}
+
+const UploadCard = ({ props }) => {
   const statusStyles = {
     "pending": [DocumentTime, dunkinBrown],
     "in_progress": [DocumentTime, dunkinOrange],
@@ -33,7 +59,7 @@ const Upload = ({ props }) => {
       <Box>
         {props.status === "processed" && (
           <CardHeader>
-            <Text size="small">
+            <Text size="small" color="green">
               <strong>Processed</strong> {[props.processed_at_time.join(" "), props.processed_at_date.join(" ")].join(" ")}
             </Text>
           </CardHeader>
