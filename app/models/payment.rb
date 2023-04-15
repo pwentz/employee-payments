@@ -18,4 +18,10 @@ class Payment < ApplicationRecord
       .select("account_number, SUM(amount) as amount")
       .group("account_number")
   end
+
+  def self.branch_totals
+    joins(payee: :employee)
+      .select("branch_id, SUM(amount) as amount")
+      .group("branch_id")
+  end
 end
