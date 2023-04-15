@@ -5,7 +5,4 @@
 <% end %>
 
 
-<% @uploads.each do |upload| %>
-  <!-- REACT COMPONENT HERE -->
-  <p><%= upload.id %>: <%= upload.status %></p>
-<% end %>
+<uploads-component props-json=<%= @uploads.to_json %> >

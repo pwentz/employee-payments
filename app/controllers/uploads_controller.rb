@@ -1,7 +1,7 @@
 require "net/http"
 class UploadsController < ApplicationController
   def index
-    @uploads = Upload.all
+    @uploads = Upload.all.map { |u| UploadDecorator.new(u) }
   end
 
   def create
