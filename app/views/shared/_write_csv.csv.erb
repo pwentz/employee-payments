@@ -1,0 +1,10 @@
+<% _headers = rows.first&.as_json&.keys || [] %>
+<%= CSV.generate do |csv| -%>
+  <% csv << _headers %>
+  <% rows.each do |payment| %>
+    <% row = _headers.map do |h| %>
+      <% payment.as_json[h].is_a?(Array) ? payment.as_json[h].join(" ") : payment.as_json[h] %>
+    <% end %>
+    <% csv << row %>
+  <% end %>
+<% end %>

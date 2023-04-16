@@ -5,7 +5,11 @@ class PaymentsController < ApplicationController
 
     respond_to do |format|
       format.html { render :index }
-      format.json { render json: @payments.to_json }
+      format.csv do
+        response.headers['Content-Type'] = 'text/csv'
+        response.headers['Content-Disposition'] = "attachment; filename=payments_#{@upload.id}.csv"
+        render :index
+      end
     end
   end
 end
