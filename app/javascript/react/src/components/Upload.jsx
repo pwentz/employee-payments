@@ -1,44 +1,17 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Menu, Text, Tag, Box, Card, CardHeader, CardBody } from 'grommet';
-import { DocumentDownload, Atm, Location, Money, DocumentTime, DocumentVerified, DocumentMissing } from 'grommet-icons';
+import { DocumentTime, DocumentVerified, DocumentMissing } from 'grommet-icons';
 import { dunkinMagenta, dunkinBrown, dunkinOrange } from "../styles";
 
 const Upload = ({ props }) => {
-  return (
-    <Menu
-      label={<UploadCard props={props} />}
-      icon={<DocumentDownload />}
-      items={[
-        {
-          label: <Text>&nbsp; Funds paid by account</Text>,
-          icon: <Atm />,
-          onClick: (p) => console.log(p)
-        },
-        {
-          label: <Text>&nbsp; Funds paid by branch</Text>,
-          icon: <Location />,
-          onClick: (p) => console.log(p)
-        },
-        {
-          label: <Text>&nbsp; All payments</Text>,
-          icon: <Money />,
-          onClick: (p) => console.log(p)
-        },
-      ]}
-    />
-  )
-}
-
-const UploadCard = ({ props }) => {
-  const statusStyles = {
+  const [Icon, bgColor] = {
     "pending": [DocumentTime, dunkinBrown],
     "in_progress": [DocumentTime, dunkinOrange],
     "processed": [DocumentVerified, "green"],
     "failed": [DocumentMissing, "red"],
     "discarded": [DocumentMissing, "grey"]
-  };
-  const [Icon, bgColor] = statusStyles[props.status]
+  }[props.status];
 
   return (
     <Card height="xsmall" width="large" direction="row" justify="around" align="center">

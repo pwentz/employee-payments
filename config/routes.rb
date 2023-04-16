@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
   root "uploads#index"
 
   resources :uploads, only: [:create, :update] do
     resources :payments, only: [:index]
+
+    get "/reports/payor_totals", to: "reports#payor_totals", constraints: { format: 'json' }
+    get "/reports/branch_totals", to: "reports#branch_totals", constraints: { format: 'json' }
   end
 end
