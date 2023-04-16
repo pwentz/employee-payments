@@ -1,8 +1,8 @@
 import { define } from 'remount'      
-import UploadPayments from "./components/UploadPayments"
+import Payments from "./components/Payments"
 import Uploads from "./components/Uploads"
                                       
 define({
-  'upload-payments-component': UploadPayments,
+  'payments-component': Payments,
   'uploads-component': Uploads
 })
