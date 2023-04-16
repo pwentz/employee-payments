@@ -4,5 +4,5 @@ import Uploads from "./components/Uploads"
                                       
 define({
   'payments-component': Payments,
-  'uploads-component': Uploads
+  'uploads-component': Uploads,
 })

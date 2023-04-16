@@ -8,7 +8,7 @@ class PaymentDecorator < SimpleDelegator
     {
       "id" => @payment.id,
       "amount" => @payment.amount.to_s,
-      "status" => @payment.status.humanize,
+      "status" => @payment.status,
       "employee_first_name" => @payment.payee.employee.first_name,
       "employee_last_name" => @payment.payee.employee.last_name,
       "employee_phone_number" => @payment.payee.employee.phone_number,

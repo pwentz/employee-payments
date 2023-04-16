@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import Payor from "./Payor";
 import Payee from "./Payee";
-import { Box, Heading } from 'grommet';
+import { Box, Heading, Tag } from 'grommet';
 import { LinkNext } from 'grommet-icons';
 import { dunkinMagenta, dunkinBrown, dunkinOrange } from "../styles";
 
@@ -33,6 +33,7 @@ const Payment = ({ props }) => {
       />
 
       <Box width="small" direction="column" pad="small" align="center" justify="start">
+        <Tag value={props.status.split("_").join(" ")} />
         <Heading size="5">${props.amount}</Heading>
         <LinkNext size="large" color={dunkinOrange} />
       </Box>

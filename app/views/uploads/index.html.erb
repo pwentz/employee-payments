@@ -1,15 +1,1 @@
-<h1>Upload document</h1>
-<%= form_for :upload, url: uploads_path, method: "POST" do |f| %>
-  <%= f.file_field :xml %>
-  <input type="submit" style="display:none;" />
-<% end %>
-
-
-<uploads-component props-json=<%= @uploads.to_json %> >
-
-<script>
-  document.querySelector("input[name='upload[xml]']").addEventListener(
-    "change",
-    (e) => e.target.files[0] && document.querySelector("input[type='submit']").click()
-  )
-</script>
+<uploads-component props-json=<%= { uploads: @uploads, form_token: form_authenticity_token }.to_json %> >

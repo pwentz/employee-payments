@@ -4,9 +4,10 @@ import { Heading, Grommet, Box, Menu, Text, Spinner } from 'grommet';
 import { globalGrommetTheme } from '../styles';
 import { Alert, Organization, Atm, Money, DocumentDownload } from 'grommet-icons';
 import Upload from "./Upload";
+import UploadForm from "./UploadForm";
 
 
-const Uploads = (uploads) => {
+const Uploads = (props) => {
   const [uploadDataGettingFetched, setUploadDataGettingFetched] = useState({})
   const [uploadDataFetchError, setUploadDataFetchError] = useState({})
 
@@ -40,9 +41,12 @@ const Uploads = (uploads) => {
 
   return (
     <Grommet full theme={globalGrommetTheme}>
-      <Box direction="column" justify="around" align="center" overflow="visible">
+      <Box direction="column" justify="around" align="center">
+        <Heading level="2">Uploads</Heading>
+        <UploadForm props={{ formToken: props.form_token }} />
+
         {
-          Object.values(uploads).map(upload => {
+          Object.values(props.uploads).map(upload => {
             if (uploadDataFetchError[upload.id]) {
               return (
                 <Box pad="small" align="center" key={upload.id}>

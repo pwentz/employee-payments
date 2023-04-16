@@ -5,6 +5,9 @@ class UploadsController < ApplicationController
   end
 
   def create
+    puts "----------------------"
+    puts params.inspect
+    puts "----------------------"
     file = params["upload"]["xml"]
     xml = Nokogiri::XML(file.open) { |c| c.strict.noblanks }
     upload_id = CreatePayments.run(xml.root.children)

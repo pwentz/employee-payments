@@ -15,7 +15,7 @@ const CopiableText = ({ props }) => {
         onClick={() => {
           navigator.clipboard.writeText(props.text)
           setShowCopiedTip(true)
-          setTimeout(() => setShowCopiedTip(false), 500)
+          setTimeout(() => setShowCopiedTip(false), 700)
         }}
       />
     </Box>

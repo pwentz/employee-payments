@@ -26,10 +26,10 @@ const PayorCard = ({ props }) => {
         </Heading>
         <Text>{props.employerEin}</Text>
       </CardHeader>
-      <CardBody pad="small" overflow="scroll">
-        <Tabs justify="evenly" onActive={setActiveIcon} overflow="scroll">
+      <CardBody pad="small">
+        <Tabs justify="evenly" onActive={setActiveIcon}>
           <Tab pad="small" title={<MapLocation {...iconProps[0]} />}>
-            <CardBody pad="small">
+            <CardBody pad="small" justify="center">
               <Text>
                 {props.employerAddressLine1.join(" ")}
               </Text>
@@ -48,7 +48,7 @@ const PayorCard = ({ props }) => {
             </CardBody>
           </Tab>
 
-          <Tab pad="small" title={<CircleInformation {...iconProps[1]} />} overflow="scroll">
+          <Tab pad="small" title={<CircleInformation {...iconProps[1]} />}>
             <CardBody direction="row" pad="small">
               <CopiableText props={{ text: props.employerId, truncate: "tip" }} />
             </CardBody>
