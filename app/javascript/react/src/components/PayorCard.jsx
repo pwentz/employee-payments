@@ -21,7 +21,7 @@ const PayorCard = ({ props }) => {
         height="xxsmall"
       >
         <Heading level="4" pad="small">
-          {props.payor_name.join(" ")}
+          {props.employer_name.join(" ")}
         </Heading>
       </CardHeader>
       <CardBody pad="small">
@@ -29,18 +29,18 @@ const PayorCard = ({ props }) => {
           <Tab pad="small" title={<Compass {...iconProps[0]} />}>
             <CardBody pad="small">
               <Text>
-                {props.payor_address_line_1.join(" ")}
+                {props.employer_address_line_1.join(" ")}
               </Text>
 
-              {props.payor_address_line_2 && (
+              {props.employer_address_line_2 && (
                 <Text>
-                  {props.payor_address_line_2.join(" ")}
+                  {props.employer_address_line_2.join(" ")}
                 </Text>
               )}
 
               <Text>
                 {
-                  `${props.payor_address_city}, ${props.payor_address_state} ${props.payor_address_zip}`
+                  `${props.employer_address_city}, ${props.employer_address_state} ${props.employer_address_zip}`
                 }
               </Text>
             </CardBody>
@@ -48,7 +48,7 @@ const PayorCard = ({ props }) => {
 
           <Tab pad="small" title={<CircleInformation {...iconProps[1]} />}>
             <CardBody pad="small">
-              <Text>{props.payor_id}</Text>
+              <Text>{props.employer_id}</Text>
             </CardBody>
           </Tab>
 

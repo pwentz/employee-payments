@@ -40,7 +40,7 @@ const Uploads = (uploads) => {
 
   return (
     <Grommet full theme={globalGrommetTheme}>
-      <Box direction="column" justify="around" align="center">
+      <Box direction="column" justify="around" align="center" overflow="visible">
         {
           Object.values(uploads).map(upload => {
             if (uploadDataFetchError[upload.id]) {
@@ -61,28 +61,31 @@ const Uploads = (uploads) => {
             }
             else {
               return (
-                <Menu
-                  key={upload.id} 
-                  label={<Upload props={upload} />}
-                  icon={<DocumentDownload />}
-                  items={[
-                    {
-                      label: <Text>&nbsp; Funds paid by account</Text>,
-                      icon: <Atm />,
-                      onClick: fetchAndDownload("reports/payor_totals", upload.id)
-                    },
-                    {
-                      label: <Text>&nbsp; Funds paid by branch</Text>,
-                      icon: <Organization />,
-                      onClick: fetchAndDownload("reports/branch_totals", upload.id)
-                    },
-                    {
-                      label: <Text>&nbsp; Payments</Text>,
-                      icon: <Money />,
-                      onClick: fetchAndDownload("payments", upload.id)
-                    }
-                  ]}
-                />
+                <Box key={upload.id} direction="row" justify="between" align="start" pad={{ top: "medium" }}>
+                  <a href={`/uploads/${upload.id}/payments`} style={{ textDecoration: "none", color: "black" }}>
+                    <Upload props={upload} />
+                  </a>
+                  <Menu
+                    icon={<DocumentDownload />}
+                    items={[
+                      {
+                        label: <Text>&nbsp; Totals by account</Text>,
+                        icon: <Atm />,
+                        onClick: fetchAndDownload("reports/payor_totals", upload.id)
+                      },
+                      {
+                        label: <Text>&nbsp; Totals by branch</Text>,
+                        icon: <Organization />,
+                        onClick: fetchAndDownload("reports/branch_totals", upload.id)
+                      },
+                      {
+                        label: <Text>&nbsp; Payments</Text>,
+                        icon: <Money />,
+                        onClick: fetchAndDownload("payments", upload.id)
+                      }
+                    ]}
+                  />
+                </Box>
               )
             }
           })

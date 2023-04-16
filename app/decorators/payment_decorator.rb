@@ -18,15 +18,16 @@ class PaymentDecorator < SimpleDelegator
       "payee_account_number" => @payment.payee.account_number,
       "payee_plaid_id" => @payment.payee.plaid_id,
       # spaces aren't being properly escaped
-      "payor_name" => (@payment.payor.employer.dba || @payment.payor.employer.name).split(" "),
-      "payor_id" => @payment.payor.corporate_id,
+      "employer_name" => @payment.payor.employer.name.split(" "),
+      "employer_id" => @payment.payor.corporate_id,
+      "employer_ein" => @payment.payor.employer.ein_number,
+      "employer_address_line_1" => @payment.payor.employer.address_line_1.split(" "),
+      "employer_address_line_2" => @payment.payor.employer.address_line_2&.split(" "),
+      "employer_address_city" => @payment.payor.employer.address_city.split(" "),
+      "employer_address_state" => @payment.payor.employer.address_state,
+      "employer_address_zip" => @payment.payor.employer.address_zip,
       "payor_routing_number" => @payment.payor.routing_number,
       "payor_account_number" => @payment.payor.account_number,
-      "payor_address_line_1" => @payment.payor.employer.address_line_1.split(" "),
-      "payor_address_line_2" => @payment.payor.employer.address_line_2&.split(" "),
-      "payor_address_city" => @payment.payor.employer.address_city.split(" "),
-      "payor_address_state" => @payment.payor.employer.address_state,
-      "payor_address_zip" => @payment.payor.employer.address_zip
     }
   end
 end
