@@ -15,7 +15,7 @@ const Payee = ({ props }) => {
   }
 
   return (
-    <Card height="small" width="medium">
+    <Card background="white" elevation="large" height="small" width="medium">
       <CardHeader
         background={dunkinMagenta}
         pad="medium"

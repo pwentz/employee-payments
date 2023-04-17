@@ -14,7 +14,7 @@ const Upload = ({ props }) => {
   }[props.status];
 
   return (
-    <Card height="xsmall" width="large" direction="row" justify="around" align="center">
+    <Card background="white" elevation="large" height="xsmall" width="large" direction="row" justify="around" align="center">
       <Box pad="medium">
         <Icon size="large" color={bgColor} />
       </Box>

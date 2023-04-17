@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Heading, Box, Button } from 'grommet';
+import { Heading, Box, Button, Text } from 'grommet';
+import { FormPrevious } from 'grommet-icons';
 
 const PaymentsHeader = ({ props }) => {
   const handleSubmit = (statusToDelete) => (e) => {
@@ -19,6 +20,17 @@ const PaymentsHeader = ({ props }) => {
 
       <Box direction="column" justify="center" align="center" pad="large">
         <Heading level="2">{props.uploadStatus === "pending" ? "Review " : ""}Payments</Heading>
+        <Button
+          default
+          label={
+            <Box direction="row" justify="evenly">
+              <FormPrevious pad="small" />
+              Uploads
+            </Box>
+          }
+          alignSelf="start"
+          onClick={() => history.back()}
+        />
         {props.uploadStatus === "pending" && (
           <Box direction="row" width="medium" justify="between">
             <Button primary type="submit" label="process payments" onClick={handleSubmit("4")} />

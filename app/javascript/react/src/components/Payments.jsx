@@ -8,7 +8,7 @@ import PaymentsHeader from "./PaymentsHeader"
 const Payments = (props) => {
   const { payments, upload_id, upload_status, form_token } = props
   return (
-    <Grommet full theme={globalGrommetTheme}>
+    <Grommet full background="light-3" theme={globalGrommetTheme}>
       <PaymentsHeader
         props={{
           uploadStatus: upload_status,

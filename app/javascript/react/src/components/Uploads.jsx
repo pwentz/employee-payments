@@ -13,10 +13,10 @@ const Uploads = (props) => {
     color: 'black'
   }
   return (
-    <Grommet full theme={globalGrommetTheme}>
+    <Grommet full background="light-1" theme={globalGrommetTheme}>
       <Box direction="column" justify="around" align="center">
-        <Box pad="large" direction="column">
-          <Heading level="2" alignSelf="center">Uploads</Heading>
+        <Box pad={{ top: "large", left: "large", right: "large" }} direction="column">
+          <Heading level="2" alignSelf="center">Upload Payments</Heading>
           <UploadForm props={{ formToken: props.form_token }} />
         </Box>
         {

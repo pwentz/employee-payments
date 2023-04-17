@@ -33,7 +33,7 @@ const Payment = ({ props }) => {
       />
 
       <Box width="small" direction="column" pad="small" align="center" justify="start">
-        <Tag value={props.status.split("_").join(" ")} />
+        <Tag background="white" value={props.status.split("_").join(" ")} />
         <Heading size="5">${props.amount}</Heading>
         <LinkNext size="large" color={dunkinOrange} />
       </Box>
