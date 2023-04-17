@@ -49,7 +49,7 @@ const PayorCard = ({ props }) => {
           </Tab>
 
           <Tab pad="small" title={<CircleInformation {...iconProps[1]} />}>
-            <CardBody direction="row" pad="small">
+            <CardBody>
               <CopiableText props={{ text: props.employerId, truncate: "tip" }} />
             </CardBody>
           </Tab>

@@ -1,13 +1,10 @@
 require "net/http"
 class UploadsController < ApplicationController
   def index
-    @uploads = Upload.all.map { |u| UploadDecorator.new(u) }
+    @uploads = Upload.order(created_at: :desc).map { |u| UploadDecorator.new(u) }
   end
 
   def create
-    puts "----------------------"
-    puts params.inspect
-    puts "----------------------"
     file = params["upload"]["xml"]
     xml = Nokogiri::XML(file.open) { |c| c.strict.noblanks }
     upload_id = CreatePayments.run(xml.root.children)

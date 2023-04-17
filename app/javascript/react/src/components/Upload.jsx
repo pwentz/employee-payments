@@ -25,21 +25,21 @@ const Upload = ({ props }) => {
         </CardHeader>
 
         <CardBody pad={{ top: "small" }}>
-          <Text size="small"><strong>Payments</strong> {props.payments}</Text>
+          <Text size="small"><strong>payments</strong> {props.payments}</Text>
         </CardBody>
       </Box>
 
       <Box>
-        {props.status === "processed" && (
+        {["processed", "failed", "discarded"].includes(props.status) && (
           <CardHeader>
-            <Text size="small" color="green">
-              <strong>Processed</strong> {[props.processed_at_time.join(" "), props.processed_at_date.join(" ")].join(" ")}
+            <Text size="small" color={bgColor}>
+              <strong>{props.status}</strong> {[props.updated_at_time.join(" "), props.updated_at_date.join(" ")].join(" ")}
             </Text>
           </CardHeader>
         )}
 
         <CardBody pad={{ top: "small" }}>
-          <Text size="small"><strong>Uploaded</strong> {[props.uploaded_at_time.join(" "), props.uploaded_at_date.join(" ")].join(" ")}</Text>
+          <Text size="small"><strong>uploaded</strong> {[props.created_at_time.join(" "), props.created_at_date.join(" ")].join(" ")}</Text>
         </CardBody>
       </Box>
     </Card>

@@ -3,10 +3,19 @@ import * as ReactDOM from 'react-dom';
 import { Grommet, Box } from 'grommet';
 import { globalGrommetTheme } from '../styles';
 import Payment from './Payment';
+import PaymentsHeader from "./PaymentsHeader"
 
-const Payments = (payments) => {
+const Payments = (props) => {
+  const { payments, upload_id, upload_status, form_token } = props
   return (
     <Grommet full theme={globalGrommetTheme}>
+      <PaymentsHeader
+        props={{
+          uploadStatus: upload_status,
+          uploadId: upload_id,
+          formToken: form_token
+        }}
+      />
       <Box direction="column" justify="evenly">
         {
           Object.values(payments).map(payment => (

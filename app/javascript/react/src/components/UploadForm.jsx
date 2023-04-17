@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import { Box, FileInput } from 'grommet';
-import { globalGrommetTheme } from '../styles';
 
 const UploadForm = ({ props }) => {
   const [selectedFile, setSelectedFile] = useState(null)

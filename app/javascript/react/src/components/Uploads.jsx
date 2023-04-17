@@ -15,9 +15,10 @@ const Uploads = (props) => {
   return (
     <Grommet full theme={globalGrommetTheme}>
       <Box direction="column" justify="around" align="center">
-        <Heading level="2">Uploads</Heading>
-        <UploadForm props={{ formToken: props.form_token }} />
-
+        <Box pad="large" direction="column">
+          <Heading level="2" alignSelf="center">Uploads</Heading>
+          <UploadForm props={{ formToken: props.form_token }} />
+        </Box>
         {
           Object.values(props.uploads).map(upload => (
             <Box key={upload.id} direction="row" justify="between" align="start" pad={{ top: "medium" }}>

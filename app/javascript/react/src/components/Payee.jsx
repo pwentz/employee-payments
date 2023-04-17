@@ -30,13 +30,13 @@ const Payee = ({ props }) => {
         <Tabs justify="evenly" onActive={setActiveIcon}>
 
           <Tab pad="small" title={<CircleInformation {...iconProps[0]} />}>
-            <CardBody direction="row" pad="small">
+            <CardBody>
               <CopiableText props={{ text: props.employeeId, truncate: "tip" }} />
             </CardBody>
           </Tab>
 
           <Tab pad="small" title={<Organization {...iconProps[1]} />}>
-            <CardBody direction="row" pad="small">
+            <CardBody>
               <CopiableText props={{ text: props.employeeBranchId, truncate: "tip" }} />
             </CardBody>
           </Tab>
