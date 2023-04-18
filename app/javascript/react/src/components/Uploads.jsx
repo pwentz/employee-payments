@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Heading, Grommet, Box, Menu, Text } from 'grommet';
 import { globalGrommetTheme } from '../styles';

@@ -7,10 +7,11 @@ class Payment < ApplicationRecord
 
   enum :status, {
     pending: 0,
-    in_progress: 1,
-    processed: 2,
+    processing: 1,
+    sent: 2,
     failed: 3,
-    cancelled: 4
+    canceled: 4,
+    invalidated: 5
   }
 
   def self.payor_totals

@@ -50,7 +50,7 @@ const Payee = ({ props }) => {
 
           <Tab pad="small" title={<CreditCard {...iconProps[3]} />}>
             <CardBody pad="small">
-              <Text><strong>Plaid Id</strong> {props.plaidId}</Text>
+              <Text><strong>Plaid ID</strong> {props.plaidId}</Text>
               <Text><strong>Account</strong> {props.accountNumber}</Text>
             </CardBody>
           </Tab>

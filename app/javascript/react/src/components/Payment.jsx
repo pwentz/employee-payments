@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import Payor from "./Payor";
 import Payee from "./Payee";
-import { Box, Heading, Tag } from 'grommet';
+import { Box, Heading, Text } from 'grommet';
 import { LinkNext } from 'grommet-icons';
 import { dunkinMagenta, dunkinBrown, dunkinOrange } from "../styles";
+import StatusTag from "./shared/StatusTag"
 
 const Payment = ({ props }) => {
   const activeIconProps = { color: dunkinOrange, background: "dark-1" }
@@ -14,9 +15,27 @@ const Payment = ({ props }) => {
     newProps[activeIdx] = activeIconProps
     setIconProps(newProps)
   }
+  const getStatusColor = () => {
+    switch(props.status) {
+      case "processing":
+        return dunkinOrange
+      case "canceled":
+        return "grey"
+      case "sent":
+        return "green"
+      case "failed":
+        return "red"
+      case "invalidated":
+        return "red"
+      default:
+        return "grey"
+    }
+  }
+
+  const [dollars, cents] = String(props.amount).split(".")
 
   return (
-    <Box direction="row" pad="small" justify="evenly">
+    <Box width="xlarge" alignSelf="center" direction="row" pad="small" justify="evenly" border={{ size: "xsmall", side: "bottom" }}>
       <Payor
         props={{
           employerId: props.employer_id,
@@ -32,10 +51,12 @@ const Payment = ({ props }) => {
         }}
       />
 
-      <Box width="small" direction="column" pad="small" align="center" justify="start">
-        <Tag background="white" value={props.status.split("_").join(" ")} />
-        <Heading size="5">${props.amount}</Heading>
-        <LinkNext size="large" color={dunkinOrange} />
+      <Box width="small" direction="column" pad="small" align="center">
+        <StatusTag props={{ status: props.status }} />
+        <Heading size="5">
+          ${[dollars, cents.padEnd(2, "0")].join(".")}
+        </Heading>
+        <LinkNext size="large" color={getStatusColor()} />
       </Box>
 
       <Payee

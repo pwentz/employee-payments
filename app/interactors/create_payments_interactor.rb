@@ -1,4 +1,4 @@
-class CreatePayments
+class CreatePaymentsInteractor
   def self.run(xml_rows)
     upload = Upload.create
 
@@ -19,7 +19,9 @@ class CreatePayments
           first_name: employee_elt.at_xpath("FirstName")&.text,
           last_name: employee_elt.at_xpath("LastName")&.text,
           date_of_birth: formatted_dob,
-          phone_number: employee_elt.at_xpath("PhoneNumber")&.text
+          # must use this phone for receiving funds permission
+          phone_number: "5121231111"
+          # phone_number: employee_elt.at_xpath("PhoneNumber")&.text
         )
       end
 
@@ -63,7 +65,7 @@ class CreatePayments
         amount: raw_amount.first == "$" ? raw_amount[1..-1] : raw_amount
       )
     rescue ActiveRecord::RecordInvalid
-      # we want to ignore row and NOT create payment if information is invalid
+      # we want to ignore row and NOT create payment if row is invalid or malformed
       next
     end
 

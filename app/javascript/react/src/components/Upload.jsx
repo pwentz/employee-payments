@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Menu, Text, Tag, Box, Card, CardHeader, CardBody } from 'grommet';
+import { Menu, Text, Box, Card, CardHeader, CardBody } from 'grommet';
 import { DocumentTime, DocumentVerified, DocumentMissing } from 'grommet-icons';
 import { dunkinMagenta, dunkinBrown, dunkinOrange } from "../styles";
+import StatusTag from "./shared/StatusTag"
 
 const Upload = ({ props }) => {
   const [Icon, bgColor] = {
@@ -21,19 +22,19 @@ const Upload = ({ props }) => {
 
       <Box>
         <CardHeader>
-          <Tag value={props.status} size="small" color={bgColor} />
+          <StatusTag props={{ status: props.status }} />
         </CardHeader>
 
         <CardBody pad={{ top: "small" }}>
-          <Text size="small"><strong>payments</strong> {props.payments}</Text>
+          <Text alignSelf="center" size="small"><strong>payments</strong> {props.payments}</Text>
         </CardBody>
       </Box>
 
       <Box>
-        {["processed", "failed", "discarded"].includes(props.status) && (
+        {["processed", "failed", "discarded", "in_progress"].includes(props.status) && (
           <CardHeader>
             <Text size="small" color={bgColor}>
-              <strong>{props.status}</strong> {[props.updated_at_time.join(" "), props.updated_at_date.join(" ")].join(" ")}
+              <strong>{props.status.split("_").join(" ")}</strong> {[props.updated_at_time.join(" "), props.updated_at_date.join(" ")].join(" ")}
             </Text>
           </CardHeader>
         )}

@@ -16,3 +16,9 @@ to include the required "type" attribute in the liability example
 
 * kept getting cryptic "amount" error creating payments
 "Invalid amount received. Amounts should be integers expressed as decimals."
+
+### Things I would have added if production environment
+* nightly reconciliation cron job that fetches payment data from methodfi API for each payment and updates status accordingly
+* ProcessPaymentsInteractor that kicks off jobs should be a Sidekiq Batch worker to batch jobs for more efficiency
+* ProcessPaymentsJob pushes to a message queue
+    * websocket server subscribes to queue and can update frontend when payments finish processing

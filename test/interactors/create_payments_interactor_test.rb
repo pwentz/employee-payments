@@ -1,6 +1,6 @@
 require "test_helper"
 
-class CreatePaymentsTest < ActiveSupport::TestCase
+class CreatePaymentsInteractorTest < ActiveSupport::TestCase
   test "it creates the necessary objects" do
     assert_equal Employee.count, 0
     assert_equal Payee.count, 0
@@ -9,7 +9,7 @@ class CreatePaymentsTest < ActiveSupport::TestCase
     assert_equal Payment.count, 0
     assert_equal Upload.count, 0
 
-    upload_id = CreatePayments.run([DummyXMLRow.new(sample_xml_row)])
+    upload_id = CreatePaymentsInteractor.run([DummyXMLRow.new(sample_xml_row)])
 
     assert Upload.exists?(upload_id)
     assert_equal Upload.find(upload_id).payments.length, 1
@@ -62,7 +62,7 @@ class CreatePaymentsTest < ActiveSupport::TestCase
     assert_equal Payment.count, 0
     assert_equal Upload.count, 0
 
-    upload_id = CreatePayments.run(
+    upload_id = CreatePaymentsInteractor.run(
       # duplicate rows
       [DummyXMLRow.new(sample_xml_row), DummyXMLRow.new(sample_xml_row)]
     )
@@ -86,7 +86,7 @@ class CreatePaymentsTest < ActiveSupport::TestCase
 
     invalid_row = sample_xml_row
     invalid_row["Employee"]["DunkinId"] = nil
-    upload_id = CreatePayments.run([DummyXMLRow.new(sample_xml_row), DummyXMLRow.new(invalid_row)])
+    upload_id = CreatePaymentsInteractor.run([DummyXMLRow.new(sample_xml_row), DummyXMLRow.new(invalid_row)])
 
     assert_equal Upload.find(upload_id).payments.length, 1
     assert_equal Employee.count, 1
