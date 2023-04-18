@@ -24,6 +24,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_152826) do
     t.string "methodfi_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["corporate_id"], name: "index_employees_on_corporate_id", unique: true
+    t.index ["methodfi_id"], name: "index_employees_on_methodfi_id", unique: true
   end
 
   create_table "employers", force: :cascade do |t|
@@ -38,6 +40,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_152826) do
     t.string "methodfi_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["ein_number"], name: "index_employers_on_ein_number", unique: true
+    t.index ["methodfi_id"], name: "index_employers_on_methodfi_id", unique: true
   end
 
   create_table "payees", force: :cascade do |t|
@@ -47,7 +51,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_152826) do
     t.string "methodfi_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_number"], name: "index_payees_on_account_number", unique: true
     t.index ["employee_id"], name: "index_payees_on_employee_id"
+    t.index ["methodfi_id"], name: "index_payees_on_methodfi_id", unique: true
   end
 
   create_table "payments", force: :cascade do |t|
@@ -59,6 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_152826) do
     t.string "methodfi_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["methodfi_id"], name: "index_payments_on_methodfi_id", unique: true
     t.index ["payee_id"], name: "index_payments_on_payee_id"
     t.index ["payor_id"], name: "index_payments_on_payor_id"
     t.index ["upload_id"], name: "index_payments_on_upload_id"
@@ -72,7 +79,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_152826) do
     t.string "methodfi_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_number"], name: "index_payors_on_account_number", unique: true
+    t.index ["corporate_id"], name: "index_payors_on_corporate_id", unique: true
     t.index ["employer_id"], name: "index_payors_on_employer_id"
+    t.index ["methodfi_id"], name: "index_payors_on_methodfi_id", unique: true
   end
 
   create_table "uploads", force: :cascade do |t|

@@ -33,7 +33,7 @@ class PaymentTest < ActiveSupport::TestCase
       "12341" => 7.0,
       "12342" => 8.0
     }
-    actual = grouped_assoc_to_h(upload.payments.processed.payor_totals, :account_number)
+    actual = grouped_assoc_to_h(upload.payments.sent.payor_totals, :account_number)
 
     assert_equal actual, expected
   end
@@ -103,7 +103,7 @@ class PaymentTest < ActiveSupport::TestCase
         account_number: "1234#{idx}"
       )
 
-      [[6, :processed], [4, :failed]].each do |amt, status|
+      [[6, :sent], [4, :failed]].each do |amt, status|
         Payment.create!(
           amount: amt + idx,
           status: status,

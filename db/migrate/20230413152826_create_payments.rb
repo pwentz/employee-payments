@@ -6,7 +6,7 @@ class CreatePayments < ActiveRecord::Migration[7.0]
       t.references :payor, null: false, foreign_key: true
       t.decimal :amount, null: false, precision: 9, scale: 2
       t.integer :status, default: 0, null: false
-      t.string :methodfi_id
+      t.string :methodfi_id, index: { unique: true }
 
       t.timestamps
     end

@@ -1,9 +1,6 @@
 class ReportsController < ApplicationController
-  before_action :get_upload
-
   def payor_totals
-    # formatted_payload = @upload.payments.processed.payor_totals.map do |grouped|
-    @rows = @upload.payments.payor_totals.map do |grouped|
+    @rows = scoped_payments.payor_totals.map do |grouped|
       {
         "source_account_number" => grouped.account_number,
         "total_paid_out" => "$#{grouped.amount.to_f}"
@@ -12,15 +9,14 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       format.csv do
-        set_csv_headers("payor_totals_#{@upload.id}")
+        set_csv_headers("payor_totals_#{params[:upload_id]}")
         render "payor_totals"
       end
     end
   end
 
   def branch_totals
-    # formatted = @upload.payments.processed.branch_totals.map do |grouped|
-    @rows = @upload.payments.branch_totals.map do |grouped|
+    @rows = scoped_payments.branch_totals.map do |grouped|
       {
         "branch" => grouped.branch_id,
         "total_paid_out" => "$#{grouped.amount.to_f}"
@@ -29,7 +25,7 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       format.csv do
-        set_csv_headers("branch_totals_#{@upload.id}")
+        set_csv_headers("branch_totals_#{params[:upload_id]}")
         render "branch_totals"
       end
     end
@@ -37,8 +33,10 @@ class ReportsController < ApplicationController
 
   private
 
-  def get_upload
-    @upload = Upload.find(params[:upload_id])
+  def scoped_payments
+    Upload.find(params[:upload_id]).payments.where(
+      status: %i[processing sent canceled]
+    )
   end
 
   def set_csv_headers(filename)

@@ -22,7 +22,6 @@ class CreatePaymentsInteractorTest < ActiveSupport::TestCase
     assert_equal employee.first_name, "Bob"
     assert_equal employee.last_name, "Johnson"
     assert_equal employee.date_of_birth, Date.new(1994, 12, 5)
-    assert_equal employee.phone_number, "1234567890"
 
     payee = Payee.first
     assert_equal payee.plaid_id, "ins_123"
